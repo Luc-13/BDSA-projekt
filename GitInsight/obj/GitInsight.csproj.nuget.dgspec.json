@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/mnt/d9f7842a-b3d0-46f8-acf2-4e4c27ba2f29/school/bdsa/BDSA-projekt/GitInsight/GitInsight.csproj": {}
+    "C:\\Users\\morten\\Documents\\GitHub\\BDSA-projekt\\GitInsight\\GitInsight.csproj": {}
   },
   "projects": {
-    "/mnt/d9f7842a-b3d0-46f8-acf2-4e4c27ba2f29/school/bdsa/BDSA-projekt/GitInsight/GitInsight.csproj": {
+    "C:\\Users\\morten\\Documents\\GitHub\\BDSA-projekt\\GitInsight\\GitInsight.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/mnt/d9f7842a-b3d0-46f8-acf2-4e4c27ba2f29/school/bdsa/BDSA-projekt/GitInsight/GitInsight.csproj",
+        "projectUniqueName": "C:\\Users\\morten\\Documents\\GitHub\\BDSA-projekt\\GitInsight\\GitInsight.csproj",
         "projectName": "GitInsight",
-        "projectPath": "/mnt/d9f7842a-b3d0-46f8-acf2-4e4c27ba2f29/school/bdsa/BDSA-projekt/GitInsight/GitInsight.csproj",
-        "packagesPath": "/home/mfoman/.nuget/packages/",
-        "outputPath": "/mnt/d9f7842a-b3d0-46f8-acf2-4e4c27ba2f29/school/bdsa/BDSA-projekt/GitInsight/obj/",
+        "projectPath": "C:\\Users\\morten\\Documents\\GitHub\\BDSA-projekt\\GitInsight\\GitInsight.csproj",
+        "packagesPath": "C:\\Users\\morten\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\morten\\Documents\\GitHub\\BDSA-projekt\\GitInsight\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/mfoman/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\morten\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -37,6 +37,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "LibGit2Sharp": {
+              "target": "Package",
+              "version": "[0.26.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -53,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.401/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
