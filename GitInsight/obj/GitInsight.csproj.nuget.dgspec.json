@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/lf/3-semester/bdsa/projekt/BDSA-projekt/GitInsight/GitInsight.csproj": {}
+    "/mnt/d9f7842a-b3d0-46f8-acf2-4e4c27ba2f29/school/bdsa/BDSA-projekt/GitInsight/GitInsight.csproj": {}
   },
   "projects": {
-    "/home/lf/3-semester/bdsa/projekt/BDSA-projekt/GitInsight/GitInsight.csproj": {
+    "/mnt/d9f7842a-b3d0-46f8-acf2-4e4c27ba2f29/school/bdsa/BDSA-projekt/GitInsight/GitInsight.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/lf/3-semester/bdsa/projekt/BDSA-projekt/GitInsight/GitInsight.csproj",
+        "projectUniqueName": "/mnt/d9f7842a-b3d0-46f8-acf2-4e4c27ba2f29/school/bdsa/BDSA-projekt/GitInsight/GitInsight.csproj",
         "projectName": "GitInsight",
-        "projectPath": "/home/lf/3-semester/bdsa/projekt/BDSA-projekt/GitInsight/GitInsight.csproj",
-        "packagesPath": "/home/lf/.nuget/packages/",
-        "outputPath": "/home/lf/3-semester/bdsa/projekt/BDSA-projekt/GitInsight/obj/",
+        "projectPath": "/mnt/d9f7842a-b3d0-46f8-acf2-4e4c27ba2f29/school/bdsa/BDSA-projekt/GitInsight/GitInsight.csproj",
+        "packagesPath": "/home/mfoman/.nuget/packages/",
+        "outputPath": "/mnt/d9f7842a-b3d0-46f8-acf2-4e4c27ba2f29/school/bdsa/BDSA-projekt/GitInsight/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/lf/.nuget/NuGet/NuGet.Config"
+          "/home/mfoman/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
