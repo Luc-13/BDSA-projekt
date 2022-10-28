@@ -9,8 +9,13 @@ using (var repo = new Repository(newPath))
     ///Users/morten/Documents/GitHub/BDSA-projekt/GitInsight/Program.cs
 {
     
-    var headCommit = repo.Head.Commits.First();
-    Console.WriteLine(headCommit);
+    var headCommit = repo.Head.Commits.ToList();
+    foreach (var c in headCommit)
+    {
+        Console.WriteLine(c.Author.Name + " " + c.Author.When.Date.Day + "/" + c.Author.When.Date.Month);
+        
+    }
+    //Console.WriteLine(headCommit);
     
 }
 
