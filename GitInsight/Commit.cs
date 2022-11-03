@@ -2,10 +2,10 @@ namespace GitInsight;
 
 public class Commit
 {
-    private string message { get;}
-    private string date { get; }
+    public string message { get;}
+    public DateTime date { get; }
     
-    public Commit(string message, string date)
+    public Commit(string message, DateTime date)
     {
         this.message = message;
         this.date = date;

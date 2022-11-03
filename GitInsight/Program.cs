@@ -1,22 +1,25 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Collections;
+using System.ComponentModel;
+using CommandLine;
+using GitInsight;
 using LibGit2Sharp;
-
-string workingDirectory = Environment.CurrentDirectory;
-string newPath = Directory.GetParent(workingDirectory).Parent.Parent.Parent.FullName;
-using (var repo = new Repository(newPath))
-    
-    ///Users/morten/Documents/GitHub/BDSA-projekt/GitInsight/Program.cs
-{
-    
-    var headCommit = repo.Head.Commits.ToList();
-    foreach (var c in headCommit)
+var lookup = new Lookup();
+Parser.Default.ParseArguments<Options>(args)
+    .WithParsed(o =>
     {
-        Console.WriteLine(c.Author.Name + " " + c.Author.When.Date.Day + "/" + c.Author.When.Date.Month);
-        
-        
-    }
-    //Console.WriteLine(headCommit);
-    
-}
+        Console.WriteLine(o.RepoPath);
+        if (o.Mode == Modes.Author)
+        {
+            lookup.authorMode(o.RepoPath);
+        }
+        else
+        {
+            lookup.commitFrequency(o.RepoPath);
+        }
+    });
+
+//lookup.authorMode();
+//lookup.commitFrequency();
 
