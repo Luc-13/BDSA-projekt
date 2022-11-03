@@ -4,16 +4,12 @@ using LibGit2Sharp;
 
 public class Lookup
 {
-    
     public void authorMode(string repopath)
     {
         List<User> userlist = new List<User>();
         var map = new Dictionary<string, User>();
-        using (var repo = new Repository(repopath))
 
-            ///Users/morten/Documents/GitHub/BDSA-projekt/GitInsight/Program.cs
-        {
-
+        using (var repo = new Repository(repopath)) {
             var headCommit = repo.Head.Commits.ToList();
             foreach (var c in headCommit)
             {
@@ -48,14 +44,12 @@ public class Lookup
 
                 foreach (var commit in histogram)
                 {
-                    //Console.WriteLine(commit.Count + " " + commit.Date.ToString("yyyy-MM-dd"));
                     Console.WriteLine($"{commit.Count,6} {commit.Date:yyyy-MM-dd}");
                 }
 
                 Console.WriteLine("");
             }
         }
-
     }
 
     public void commitFrequency(string repopath)
@@ -77,14 +71,10 @@ public class Lookup
             
             foreach (var commit in histogram)
             {
-                //Console.WriteLine(commit.Count + " " + commit.Date.ToString("yyyy-MM-dd"));
                 Console.WriteLine($"{commit.Count,6} {commit.Date:yyyy-MM-dd}");
             }
 
             Console.WriteLine("");
-            
         }
-
-        
     }
 }

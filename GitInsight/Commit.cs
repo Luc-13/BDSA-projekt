@@ -10,5 +10,4 @@ public class Commit
         this.message = message;
         this.date = date;
     }
-    
 }
