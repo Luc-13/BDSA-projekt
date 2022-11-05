@@ -1,34 +1,56 @@
-﻿using System.Collections;
-using System.ComponentModel;
-using CommandLine;
+﻿using CommandLine;
 using GitInsight;
-using LibGit2Sharp;
 using Npgsql;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 var lookup = new Lookup();
+
+var root = Directory.GetCurrentDirectory();
+var dotenv = Path.Combine(root, ".env");
+DotEnv.Load(dotenv);
 
 Parser.Default.ParseArguments<Options>(args)
     .WithParsed(o =>
     {
-        switch (o.Mode)
-        {
-            case Modes.Author:
-                lookup.authorMode(o.RepoPath);
-                break;
-
-            case Modes.Frequency:
-            default:
-                lookup.commitFrequency(o.RepoPath);
-                break;
-        }
-
         Pgsql().GetAwaiter().GetResult();
+
+        // switch (o.Mode)
+        // {
+        //     case Modes.Author:
+        //         lookup.authorMode(o.RepoPath);
+        //         break;
+
+        //     case Modes.Frequency:
+        //     default:
+        //         lookup.commitFrequency(o.RepoPath);
+        //         break;
+        // }
     });
 
 async Task Pgsql() {
-    var connString = "Host=host.docker.internal:5432;Username=root;Password=root;Database=gitinsight";
+    var connString = "Host=db:5432;Username=;Password=root;Database=gitinsight";
 
-    await using var conn = new NpgsqlConnection(connString);
+    using IHost host = Host.CreateDefaultBuilder(args).Build();
+
+    // Ask the service provider for the configuration abstraction.
+    IConfiguration config = host.Services.GetRequiredService<IConfiguration>();
+
+    // Get values from the config given their key and their target type.
+    var hostname = config.GetValue<string>("HOST");
+    var username = config.GetValue<string>("USERNAME");
+    var password = config.GetValue<string>("PASSWORD");
+
+    var builder = new NpgsqlConnectionStringBuilder(connString);
+
+    builder.Host = hostname;
+    builder.Username = username;
+    builder.Password = username;
+
+    var connection = builder.ConnectionString;
+
+    await using var conn = new NpgsqlConnection(connection);
     await conn.OpenAsync();
 
     // Insert some data
