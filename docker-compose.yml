@@ -1,0 +1,9 @@
+
+version: '3.4'
+
+services:
+  gitinsight:
+    image: gitinsight
+    build:
+      context: .
+      dockerfile: GitInsight/Dockerfile

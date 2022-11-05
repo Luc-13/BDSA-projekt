@@ -26,7 +26,7 @@ Parser.Default.ParseArguments<Options>(args)
     });
 
 async Task Pgsql() {
-    var connString = "Host=host.docker.internal:54320;Username=root;Password=root;Database=gitinsight";
+    var connString = "Host=host.docker.internal:5432;Username=root;Password=root;Database=gitinsight";
 
     await using var conn = new NpgsqlConnection(connString);
     await conn.OpenAsync();
