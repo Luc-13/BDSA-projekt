@@ -12,4 +12,9 @@ public class User
         userName = username;
         commitlist = new List<Commit>();
     }
+
+    public int getTotalCommits()
+    {
+        return commitlist.Count;
+    }
 }
