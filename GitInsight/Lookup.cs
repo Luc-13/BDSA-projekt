@@ -1,6 +1,7 @@
 namespace GitInsight;
-using GitInsight;
+using GitInsight.Infrastructure;
 using LibGit2Sharp;
+using Commit = Infrastructure.Commit;
 
 public class Lookup
 {
@@ -24,15 +25,15 @@ public class Lookup
                 }
 
                 uservalue.commitlist.Add(
-                    new GitInsight.Commit(c.Message, c.Author.When.Date));
+                    new Commit(c.Message, c.Author.When.Date));
 
             }
 
             foreach ((string name, User user) in map)
             {
-                Console.WriteLine(user.userName);
+                Console.WriteLine(user.Username);
                 var histogram = from c in user.commitlist
-                    group c by c.date
+                                group c by c.Date
                     into h
                     let i = h.Count()
                     orderby h.Key
