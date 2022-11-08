@@ -22,3 +22,14 @@ Week One
 -----------
 
 Week Two
+
+# Functional Requirements
+
+-   No functional requirements for this week
+
+
+# Non-Functional Requirements
+
+ -   The database has to store information about which repository were analyzed at which state.
+ -   If the repository information exsits in the database, the repository has to be re-analyzed and the information has to be updated to the latest information.
+ -   If the repository is re-analyzed and the information corresponds to existing information in the database, the analysis step should be skipped
