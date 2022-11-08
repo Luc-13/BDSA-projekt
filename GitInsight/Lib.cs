@@ -29,6 +29,9 @@ class Lib
 
     public async Task SetupDatabase(String[] args)
     {
+        var factory = new GitInsightContextFactory();
+        using var context = factory.CreateDbContext(args);
+
         var connString = "Host=db:5432;Username=;Password=root;Database=gitinsight";
 
         using IHost host = Host.CreateDefaultBuilder(args).Build();

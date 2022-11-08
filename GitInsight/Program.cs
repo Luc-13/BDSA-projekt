@@ -1,24 +1,29 @@
 ﻿using CommandLine;
 using GitInsight;
 
-var root = Directory.GetCurrentDirectory();
-
-var lib = new Lib();
-
-Parser.Default.ParseArguments<Options>(args)
-    .WithParsed(o =>
+internal class Program
+{
+    private static void Main(string[] args)
     {
-        lib.SetupDatabase(args).GetAwaiter().GetResult();
+        var root = Directory.GetCurrentDirectory();
+        var lib = new Lib();
 
-        switch (o.Mode)
-        {
-            case Modes.Author:
-                lib.GetCommitFrequencyByAuthorThenDate(o.RepoPath);
-                break;
+        Parser.Default.ParseArguments<Options>(args)
+            .WithParsed(o =>
+            {
+                lib.SetupDatabase(args).GetAwaiter().GetResult();
 
-            case Modes.Frequency:
-            default:
-                lib.GetCommitFrequencyByDate(o.RepoPath);
-                break;
-        }
-    });
+                switch (o.Mode)
+                {
+                    case Modes.Author:
+                        lib.GetCommitFrequencyByAuthorThenDate(o.RepoPath);
+                        break;
+
+                    case Modes.Frequency:
+                    default:
+                        lib.GetCommitFrequencyByDate(o.RepoPath);
+                        break;
+                }
+            });
+    }
+}
