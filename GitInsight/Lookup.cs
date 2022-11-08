@@ -87,8 +87,12 @@ public class Lookup
     }
     public void Clone(string temppath, string repopath)
     {
-        var url = ("https://www.github.com/" + repopath);
-        Repository.Clone(url, temppath);
+        var url = ("https://github.com/" + repopath);
+
+        string newDir = Path.GetTempPath() + repopath;
+        Directory.CreateDirectory(newDir);
+
+        Repository.Clone(url, Path.Combine(temppath, newDir));
         Console.WriteLine(temppath);
     }
     public void FetchPull(string repopath)
@@ -109,14 +113,20 @@ public class Lookup
         }
         Console.WriteLine("fetchpull done");
     }
-    public void CheckRepo(string repopath, string repo){
+    public void CheckRepo(string repopath, string repo)
+    {
         Console.WriteLine("Checking repo");
         var temppath = System.IO.Path.GetTempPath();
         string[] subdirs = Directory.GetDirectories(temppath);
 
-        if(!subdirs.Contains(repo)){
+        if (!subdirs.Contains(repo))
+        {
+            Console.WriteLine("Calling clone");
             Clone(temppath, repopath);
-        }else{
+        }
+        else
+        {
+            Console.WriteLine("Calling FetchPull");
             FetchPull(temppath + "/" + repopath);
         }
     }
