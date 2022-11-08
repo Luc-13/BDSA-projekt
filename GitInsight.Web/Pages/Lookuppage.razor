@@ -1,0 +1,30 @@
+@page "/lookuppage/{User?}/{Repo?}"
+@using GitInsight;
+@using System.IO;
+
+
+<PageTitle>Lookuppage</PageTitle>
+
+<h1>Looking up @User/@Repo</h1>
+
+@code {
+    [Parameter]
+    public string? User { get; set; } = "";
+    
+    [Parameter]
+    public string? Repo{ get; set; } = "";
+    
+    protected override void OnInitialized()
+    {
+        User = User ?? "";
+        Repo = Repo ?? "";
+    }
+    private void getRepo(){
+        var lookup = new Lookup();
+        string repopath = (User + "/" + Repo);
+        lookup.CheckRepo(repopath, Repo);
+    }
+    
+    
+    
+}
