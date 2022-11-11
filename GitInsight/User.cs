@@ -1,5 +1,5 @@
 using System.Collections;
-
+using System.Text.Json;
 namespace GitInsight;
 
 public class User
@@ -12,4 +12,5 @@ public class User
         userName = username;
         commitlist = new List<Commit>();
     }
+
 }

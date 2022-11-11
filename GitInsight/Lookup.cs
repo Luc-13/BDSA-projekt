@@ -2,6 +2,7 @@ namespace GitInsight;
 using GitInsight;
 using LibGit2Sharp;
 using System;
+using System.Text.Json;
 
 public class Lookup
 {
@@ -80,8 +81,9 @@ public class Lookup
             {
                 //Console.WriteLine(commit.Count + " " + commit.Date.ToString("yyyy-MM-dd"));
                 Console.WriteLine($"{commit.Count,6} {commit.Date:yyyy-MM-dd}");
-            }
 
+            }
+            JsonFileUtils.StreamWrite(histogram, "commits");
             Console.WriteLine("");
         }
     }
@@ -115,15 +117,20 @@ public class Lookup
     public void CheckRepo(string repopath, string repo)
     {
         var temppath = System.IO.Path.GetTempPath();
-        if (Directory.Exists(temppath + "/" + repopath))
+        var path = temppath + "/" + repopath;
+        if (Directory.Exists(path))
         {
             Console.WriteLine("Repo " + repo + " already exists, fetchpulling");
-            FetchPull(temppath + "/" + repopath);
+            FetchPull(path);
+            commitFrequency(path);
         }
         else
         {
             Console.WriteLine("Repo " + repo + " doesn't exist, cloning");
             Clone(temppath, repopath);
+            commitFrequency(path);
         }
     }
+
+
 }
