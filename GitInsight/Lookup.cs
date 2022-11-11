@@ -115,20 +115,14 @@ public class Lookup
     }
     public void CheckRepo(string repopath, string repo)
     {
-        Console.WriteLine("Checking repo");
         var temppath = System.IO.Path.GetTempPath();
-        string[] subdirs = Directory.GetDirectories(temppath);
-
-        if (!subdirs.Contains(repo))
+        if (Directory.Exists(temppath + "/" + repopath))
         {
-            Console.WriteLine("Calling clone");
-            Clone(temppath, repopath);
+            FetchPull(temppath + "/" + repopath);
         }
         else
         {
-            Console.WriteLine("Calling FetchPull");
-            FetchPull(temppath + "/" + repopath);
+            Clone(temppath, repopath);
         }
     }
-
 }

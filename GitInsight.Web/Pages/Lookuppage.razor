@@ -4,19 +4,23 @@
 @code {
     [Parameter]
     public string? User { get; set; } = "";
-    
+
     [Parameter]
-    public string? Repo{ get; set; } = "";
-    
+    public string? Repo { get; set; } = "";
+
     protected override void OnInitialized()
     {
         User = User ?? "";
         Repo = Repo ?? "";
         GetRepo();
     }
-    public void GetRepo(){
+    public void GetRepo()
+    {
         var lookup = new Lookup();
         string repopath = (User + "/" + Repo);
+        Console.WriteLine("repopath = " + repopath);
+        Console.WriteLine("User = " + User);
         lookup.CheckRepo(repopath, Repo);
-    }    
+
+    }
 }
