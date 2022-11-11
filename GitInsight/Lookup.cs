@@ -111,17 +111,18 @@ public class Lookup
             pullOptions.MergeOptions.FailOnConflict = true;
             Commands.Pull(repo, new Signature(name: "main", email: "mail", when: DateTimeOffset.Now), pullOptions);
         }
-        Console.WriteLine("fetchpull done");
     }
     public void CheckRepo(string repopath, string repo)
     {
         var temppath = System.IO.Path.GetTempPath();
         if (Directory.Exists(temppath + "/" + repopath))
         {
+            Console.WriteLine("Repo " + repo + " already exists, fetchpulling");
             FetchPull(temppath + "/" + repopath);
         }
         else
         {
+            Console.WriteLine("Repo " + repo + " doesn't exist, cloning");
             Clone(temppath, repopath);
         }
     }
