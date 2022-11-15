@@ -4,7 +4,7 @@ namespace GitInsight;
 
 public class User
 {
-    public List<Commit> commitlist;
+    public List<Commit> commitlist { get; }
     public string userName { get; }
 
     public User(string username)

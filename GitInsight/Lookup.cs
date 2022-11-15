@@ -6,7 +6,9 @@ using System.Text.Json;
 
 public class Lookup
 {
-
+    string fileName = "commits.json";
+    JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
+    private string jsonFile;
     public void authorMode(string repopath)
     {
         List<User> userlist = new List<User>();
@@ -33,6 +35,7 @@ public class Lookup
                     new GitInsight.Commit(c.Message, c.Author.When.Date));
 
             }
+            
 
             foreach ((string name, User user) in map)
             {
@@ -53,7 +56,8 @@ public class Lookup
                     //Console.WriteLine(commit.Count + " " + commit.Date.ToString("yyyy-MM-dd"));
                     Console.WriteLine($"{commit.Count,6} {commit.Date:yyyy-MM-dd}");
                 }
-
+                jsonFile = JsonSerializer.Serialize(map, options);
+                File.WriteAllText(fileName, jsonFile);
                 Console.WriteLine("");
             }
         }
@@ -62,6 +66,7 @@ public class Lookup
 
     public void commitFrequency(string repopath)
     {
+        
         using (var repo = new Repository(repopath))
         {
             var headCommit = repo.Head.Commits.ToList();
@@ -81,9 +86,11 @@ public class Lookup
             {
                 //Console.WriteLine(commit.Count + " " + commit.Date.ToString("yyyy-MM-dd"));
                 Console.WriteLine($"{commit.Count,6} {commit.Date:yyyy-MM-dd}");
+                
 
             }
-            JsonFileUtils.StreamWrite(histogram, "commits");
+            jsonFile = JsonSerializer.Serialize(histogram, options);
+            File.WriteAllText(fileName, jsonFile);
             Console.WriteLine("");
         }
     }
@@ -122,14 +129,19 @@ public class Lookup
         {
             Console.WriteLine("Repo " + repo + " already exists, fetchpulling");
             FetchPull(path);
-            commitFrequency(path);
+            authorMode(path);
         }
         else
         {
             Console.WriteLine("Repo " + repo + " doesn't exist, cloning");
             Clone(temppath, repopath);
-            commitFrequency(path);
+            authorMode(path);
         }
+    }
+
+    public string getJson()
+    {
+        return jsonFile;
     }
 
 
