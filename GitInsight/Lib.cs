@@ -5,7 +5,7 @@ using Npgsql;
 
 namespace GitInsight;
 
-class Lib
+public class Lib
 {
     private Lookup _lookup;
 

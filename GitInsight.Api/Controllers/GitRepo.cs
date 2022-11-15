@@ -12,12 +12,24 @@ public enum Modes
 [Route("api")]
 public class GitRepoController : ControllerBase
 {
+    Lib _lib = new Lib();
+
     public GitRepoController() { }
 
     [HttpGet("{user}/{repo}")]
     public IEnumerable<Repo> Get(String user, String repo, Modes? mode = Modes.Commit)
     {
-        Console.WriteLine(mode);
+        var url = $"https://github.com/{user}/{repo}";
+
+        switch (mode)
+        {
+            case Modes.Commit:
+                _lib.GetCommitFrequencyByDate(url);
+                break;
+            case Modes.Author:
+                _lib.GetCommitFrequencyByAuthorThenDate(url);
+                break;
+        }
 
         var repoResult = new Repo
         {
