@@ -2,18 +2,20 @@ namespace GitInsight.Infrastructure;
 
 public class User
 {
-    public int Id { get; set; }
-    public List<Commit> commitlist;
-    public string Username { get; }
+    public int UserId { get; set; }
+    public string Username { get; set; }
+    public List<Commit> Commits;
+    public List<Repo> Repos;
 
     public User(string username)
     {
         Username = username;
-        commitlist = new List<Commit>();
+        Commits = new List<Commit>();
+        Repos = new List<Repo>();
     }
 
     public int getTotalCommits()
     {
-        return commitlist.Count;
+        return Commits.Count;
     }
 }
