@@ -8,7 +8,12 @@ public class Commit
     public User? User { get; set; }
     public Repo? Repo { get; set; }
 
-    public Commit(String message, DateTime date) { }
+    public Commit(String message, DateTime date)
+    {
+        Message = message;
+        Date = date;
+    }
+
     public Commit(String message, DateTime date, User user, Repo repo)
     {
         Message = message;
