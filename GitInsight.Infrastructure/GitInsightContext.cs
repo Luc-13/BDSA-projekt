@@ -5,7 +5,8 @@ public class GitInsightContext : DbContext
 {
     public DbSet<User> Users => Set<User>();
     public DbSet<Repo> Repos => Set<Repo>();
-    public DbSet<Commit>? Commits { get; set; }
+
+    public DbSet<Commit> Commits => Set<Commit>();
     // public DbSet<Blog> Blogs { get; set; }
     // public DbSet<Post> Posts { get; set; }
 

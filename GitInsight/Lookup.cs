@@ -4,26 +4,31 @@ using System.Text.Json;
 using LibGit2Sharp;
 using Commit = Infrastructure.Commit;
 
+public class HistLine
+{
+    public DateTime? Date;
+    public int Count;
+}
 
 public class Lookup
 {
-    string fileName = "commits.json";
-    JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
-    private string? jsonFile;
-    public void authorMode(string repopath)
+    public Dictionary<String, Dictionary<DateTime, int>> authorMode(string repopath)
     {
         List<User> userlist = new List<User>();
-        var map = new Dictionary<string, User>();
+        var map = new Dictionary<String, User>();
+        var hist = new Dictionary<String, Dictionary<DateTime, int>>();
 
         using (var repo = new Repository(repopath))
         {
             var headCommit = repo.Head.Commits.ToList();
+
             foreach (var c in headCommit)
             {
                 var user = new User(c.Author.Name);
                 var name = c.Author.Name;
 
                 User? uservalue;
+
                 if (!map.TryGetValue(name, out uservalue))
                 {
                     uservalue = new User(name);
@@ -32,13 +37,11 @@ public class Lookup
 
                 uservalue.Commitlist.Add(
                     new Commit(c.Message, c.Author.When.Date));
-
             }
 
 
             foreach ((string name, User user) in map)
             {
-                Console.WriteLine(user.Username);
                 var histogram = from c in user.Commitlist
                                 group c by c.Date
                     into h
@@ -54,15 +57,17 @@ public class Lookup
                 {
                     Console.WriteLine($"{commit.Count,6} {commit.Date:yyyy-MM-dd}");
                 }
-                jsonFile = JsonSerializer.Serialize(map, options);
-                File.WriteAllText(fileName, jsonFile);
-                Console.WriteLine("");
+
+                hist.Add(name, histogram.ToDictionary(o => o.Date, o => o.Count));
             }
+
+            return hist;
         }
     }
 
-    public void commitFrequency(string repopath)
+    public Dictionary<String, int> commitFrequency(string repopath)
     {
+        var results = new Dictionary<String, int>();
 
         using (var repo = new Repository(repopath))
         {
@@ -79,27 +84,33 @@ public class Lookup
                                 Count = i
                             };
 
-            foreach (var commit in histogram)
+            foreach (var item in histogram)
             {
-                Console.WriteLine($"{commit.Count,6} {commit.Date:yyyy-MM-dd}");
-
-
+                results.Add(item.Date.ToString("yyyy-MM-dd"), item.Count);
             }
-            jsonFile = JsonSerializer.Serialize(histogram, options);
-            File.WriteAllText(fileName, jsonFile);
-            Console.WriteLine("");
+
+            // foreach (var commit in histogram)
+            // {
+            //     Console.WriteLine($"{commit.Count,6} {commit.Date:yyyy-MM-dd}");
+            // }
+            // jsonFile = JsonSerializer.Serialize(histogram, options);
+            // File.WriteAllText(fileName, jsonFile);
+            // Console.WriteLine("");
+
+            return results;
         }
     }
-    public void Clone(string temppath, string repopath)
+    public string Clone(string repopath)
     {
         var url = ("https://github.com/" + repopath);
-
-        string newDir = Path.GetTempPath() + repopath;
+        string temppath = Path.GetTempPath();
+        string newDir = temppath + repopath;
         Directory.CreateDirectory(newDir);
 
-        Repository.Clone(url, Path.Combine(temppath, newDir));
-        Console.WriteLine(temppath);
+        Repository.Clone(url, newDir);
+        return newDir;
     }
+
     public void FetchPull(string repopath)
     {
         using (var repo = new Repository(repopath))
@@ -117,26 +128,28 @@ public class Lookup
             Commands.Pull(repo, new Signature(name: "main", email: "mail", when: DateTimeOffset.Now), pullOptions);
         }
     }
-    public void CheckRepo(string repopath, string repo)
+
+    public string? RepoExists(string repopath)
     {
         var temppath = System.IO.Path.GetTempPath();
         var path = temppath + "/" + repopath;
-        if (Directory.Exists(path))
+
+        return Directory.Exists(path) ? path : null;
+    }
+
+    public string PullRepo(string path)
+    {
+        var localpath = RepoExists(path);
+
+        if (localpath is null)
         {
-            Console.WriteLine("Repo " + repo + " already exists, fetchpulling");
-            FetchPull(path);
-            authorMode(path);
+            return Clone(path);
         }
         else
         {
-            Console.WriteLine("Repo " + repo + " doesn't exist, cloning");
-            Clone(temppath, repopath);
-            authorMode(path);
+            FetchPull(localpath);
         }
-    }
 
-    public string getJson()
-    {
-        return jsonFile;
+        return localpath;
     }
 }

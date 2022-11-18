@@ -13,35 +13,51 @@ public enum Modes
 public class GitRepoController : ControllerBase
 {
     Lib _lib = new Lib();
+    Lookup _lookup = new Lookup();
 
     public GitRepoController() { }
 
     [HttpGet("{user}/{repo}")]
     public IEnumerable<Repo> Get(String user, String repo, Modes? mode = Modes.Commit)
     {
-        var url = $"https://github.com/{user}/{repo}";
+        var url = $"{user}/{repo}";
 
-        switch (mode)
-        {
-            case Modes.Commit:
-                _lib.GetCommitFrequencyByDate(url);
-                break;
-            case Modes.Author:
-                _lib.GetCommitFrequencyByAuthorThenDate(url);
-                break;
-        }
+        String localpath = _lookup.PullRepo(url);
+
+        var freq = new Dictionary<String, int>();
+        var auth = new Dictionary<String, Dictionary<DateTime, int>>();
+
+        var newfreq = (Dictionary<String, dynamic>) Convert.ChangeType(freq, typeof(Dictionary<String, dynamic>));
 
         var repoResult = new Repo
         {
             Name = $"{user}/{repo}"
         };
 
-        repoResult.Frequencies = Enumerable.Range(1, 5).Select(index =>
+        switch (mode)
         {
-            return new Dictionary<String, int> {
-                {"2017-12-08", index}
-            };
-        }).ToList();
+            case Modes.Commit:
+                freq = _lookup.commitFrequency(localpath);
+                repoResult.Frequencies.Add(
+                    newfreq
+                );
+                break;
+
+            case Modes.Author:
+                auth = _lookup.authorMode(localpath);
+
+                Console.WriteLine(auth);
+
+                foreach ((string name, Dictionary<DateTime, int> hist) in auth)
+                {
+                    repoResult.Frequencies.Add(
+                        new Dictionary<String, dynamic>(){
+                            {name, hist}
+                        }
+                    );
+                }
+                break;
+        }
 
         yield return repoResult;
     }
