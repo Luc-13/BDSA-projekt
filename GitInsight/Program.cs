@@ -1,25 +1,29 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using System.Collections;
-using System.ComponentModel;
-using CommandLine;
+﻿using CommandLine;
 using GitInsight;
-using LibGit2Sharp;
-var lookup = new Lookup();
-Parser.Default.ParseArguments<Options>(args)
-    .WithParsed(o =>
+
+internal class Program
+{
+    private static void Main(string[] args)
     {
-        Console.WriteLine(o.RepoPath);
-        if (o.Mode == Modes.Author)
-        {
-            lookup.authorMode(o.RepoPath);
-        }
-        else
-        {
-            lookup.commitFrequency(o.RepoPath);
-        }
-    });
+        var root = Directory.GetCurrentDirectory();
+        var lib = new Lib();
 
-//lookup.authorMode();
-//lookup.commitFrequency();
+        Parser.Default.ParseArguments<Options>(args)
+            .WithParsed(o =>
+            {
+                lib.SetupDatabase(args).GetAwaiter().GetResult();
 
+                switch (o.Mode)
+                {
+                    case Modes.Author:
+                        lib.GetCommitFrequencyByAuthorThenDate(o.RepoPath);
+                        break;
+
+                    case Modes.Frequency:
+                    default:
+                        lib.GetCommitFrequencyByDate(o.RepoPath);
+                        break;
+                }
+            });
+    }
+}

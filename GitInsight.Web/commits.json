@@ -1,0 +1,113 @@
+{
+  "robin-yg": {
+    "commitlist": [
+      {
+        "message": "Update Functional requirements.md",
+        "date": "2022-11-08T00:00:00"
+      },
+      {
+        "message": "Update Functional requirements.md",
+        "date": "2022-11-04T00:00:00"
+      }
+    ],
+    "userName": "robin-yg"
+  },
+  "Frederik": {
+    "commitlist": [
+      {
+        "message": "Merge pull request #6 from luczito/feature/author-mode\n\nFeature/author mode",
+        "date": "2022-11-03T00:00:00"
+      },
+      {
+        "message": "Create dotnet.yml",
+        "date": "2022-10-25T00:00:00"
+      }
+    ],
+    "userName": "Frederik"
+  },
+  "Morten Falk": {
+    "commitlist": [
+      {
+        "message": "added options and commandlineparser\n\nfull path to github directory in author mode: dotnet run -- /Users/morten/Documents/GitHub/BDSA-projekt -m Author\n\nRelative path frequency mode: dotnet run -- ../ -m Frequency\n",
+        "date": "2022-11-01T00:00:00"
+      },
+      {
+        "message": "author mode in program\n",
+        "date": "2022-11-01T00:00:00"
+      },
+      {
+        "message": "basics of user and commit classes\n",
+        "date": "2022-11-01T00:00:00"
+      },
+      {
+        "message": "basics of how to interact with headcommit list\n",
+        "date": "2022-10-28T00:00:00"
+      },
+      {
+        "message": "pathing structure for directing to repository\n",
+        "date": "2022-10-28T00:00:00"
+      },
+      {
+        "message": "Add libgit2sharp to gitinsight\n",
+        "date": "2022-10-25T00:00:00"
+      }
+    ],
+    "userName": "Morten Falk"
+  },
+  "lufr@itu.dk": {
+    "commitlist": [
+      {
+        "message": "outline for tests\n",
+        "date": "2022-10-28T00:00:00"
+      },
+      {
+        "message": "Merge branch \u0027main\u0027 of github.com:luczito/BDSA-projekt into main\n",
+        "date": "2022-10-28T00:00:00"
+      },
+      {
+        "message": "one line use cases\n",
+        "date": "2022-10-28T00:00:00"
+      },
+      {
+        "message": "Merge branch \u0027main\u0027 of github.com:luczito/BDSA-projekt into main\n",
+        "date": "2022-10-25T00:00:00"
+      },
+      {
+        "message": "init\n",
+        "date": "2022-10-25T00:00:00"
+      }
+    ],
+    "userName": "lufr@itu.dk"
+  },
+  "mfoman": {
+    "commitlist": [
+      {
+        "message": "Remove morten from files\n",
+        "date": "2022-10-25T00:00:00"
+      },
+      {
+        "message": "Dependabot and gitignore\n",
+        "date": "2022-10-25T00:00:00"
+      }
+    ],
+    "userName": "mfoman"
+  },
+  "Incres1": {
+    "commitlist": [
+      {
+        "message": "Merge pull request #4 from luczito/feature/gitlib\n\nAdd libgit2sharp to gitinsight",
+        "date": "2022-10-25T00:00:00"
+      }
+    ],
+    "userName": "Incres1"
+  },
+  "LF": {
+    "commitlist": [
+      {
+        "message": "Initial commit",
+        "date": "2022-10-25T00:00:00"
+      }
+    ],
+    "userName": "LF"
+  }
+}

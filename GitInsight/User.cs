@@ -1,15 +1,16 @@
-using System.Collections;
+using GitInsight.Infrastructure;
 
 namespace GitInsight;
 
 public class User
 {
-    public List<Commit> commitlist;
-    public string userName { get; }
+    public List<Commit> Commitlist { get; }
+
+    public string Username { get; }
 
     public User(string username)
     {
-        userName = username;
-        commitlist = new List<Commit>();
+        Username = username;
+        Commitlist = new List<Commit>();
     }
 }

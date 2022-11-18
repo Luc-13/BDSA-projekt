@@ -1,0 +1,33 @@
+@page "/lookuppage/{User?}/{Repo?}"
+@using GitInsight;
+@using GitInsight.Infrastructure;
+
+
+<ul>
+    @lookup.getJson();
+</ul>
+
+@code {
+    Lookup lookup = new Lookup();
+    [Parameter]
+    public string? User { get; set; } = "";
+
+    [Parameter]
+    public string? Repo { get; set; } = "";
+
+    public Commit commit;
+    protected override void OnInitialized()
+    {
+        User = User ?? "";
+        Repo = Repo ?? "";
+        GetRepo();
+
+    }
+    public void GetRepo()
+    {
+        string repopath = (User + "/" + Repo);
+        lookup.CheckRepo(repopath, Repo);
+        //lookup.authorMode(repopath);
+
+    }
+}

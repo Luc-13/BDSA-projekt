@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  gitinsight:
+    image: gitinsight
+    build:
+      context: .
+      dockerfile: GitInsight/Dockerfile
+    environment:
+      - name=value
+    volumes:
+      - .:/allsrc
+      - ./.docker.env:/app/.env
+      - ~/.vsdbg:/remote_debugger:rw
+    command: "/allsrc -m f"
+
+networks:
+  default:
+    external:
+      name: gitinsight
