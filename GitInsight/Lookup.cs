@@ -53,10 +53,10 @@ public class Lookup
                                     Count = i
                                 };
 
-                foreach (var commit in histogram)
-                {
-                    Console.WriteLine($"{commit.Count,6} {commit.Date:yyyy-MM-dd}");
-                }
+                // foreach (var commit in histogram)
+                // {
+                //     Console.WriteLine($"{commit.Count,6} {commit.Date:yyyy-MM-dd}");
+                // }
 
                 hist.Add(name, histogram.ToDictionary(o => o.Date, o => o.Count));
             }

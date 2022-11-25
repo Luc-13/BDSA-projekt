@@ -18,47 +18,76 @@ public class GitRepoController : ControllerBase
     public GitRepoController() { }
 
     [HttpGet("{user}/{repo}")]
-    public IEnumerable<Repo> Get(String user, String repo, Modes? mode = Modes.Commit)
+    public ActionResult<dynamic> Get(String user, String repo, Modes? mode = Modes.Commit)
     {
         var url = $"{user}/{repo}";
 
         String localpath = _lookup.PullRepo(url);
 
-        var freq = new Dictionary<String, int>();
-        var auth = new Dictionary<String, Dictionary<DateTime, int>>();
+        // var repoResult = new Repo
+        // {
+        //     Name = $"{user}/{repo}"
+        // };
 
-        var newfreq = (Dictionary<String, dynamic>) Convert.ChangeType(freq, typeof(Dictionary<String, dynamic>));
+        // var dict = new Dictionary<DateTime, int>
+        // {
+        //     [new DateTime()] = 9
+        // };
 
-        var repoResult = new Repo
-        {
-            Name = $"{user}/{repo}"
-        };
+        // var f = new RepoFreq(dict);
+        // var name = "wut";
+
+        // // SKAL VÆRE LISTE I STEET LMAO
+
+        // var a = new RepoAuthor(name, f);
+
+        // var res = new RepoResultAuthor(new List<RepoAuthor>(){
+        //     a
+        // });
+
+        dynamic res;
 
         switch (mode)
         {
-            case Modes.Commit:
-                freq = _lookup.commitFrequency(localpath);
-                repoResult.Frequencies.Add(
-                    newfreq
-                );
-                break;
-
             case Modes.Author:
-                auth = _lookup.authorMode(localpath);
+                var dict = _lookup.authorMode(localpath);
+                //fix this
+                var f = new RepoFreq(dict);
+                var name = "wut";
 
-                Console.WriteLine(auth);
+                // SKAL VÆRE LISTE I STEET LMAO
 
-                foreach ((string name, Dictionary<DateTime, int> hist) in auth)
-                {
-                    repoResult.Frequencies.Add(
-                        new Dictionary<String, dynamic>(){
-                            {name, hist}
-                        }
-                    );
-                }
+                var a = new RepoAuthor(dict);
+
+                res = new RepoResultAuthor(new List<RepoAuthor>(){
+                    a
+                });
+
+                // auth = _lookup.authorMode(localpath);
+
+                // Console.WriteLine(auth);
+
+                // foreach ((string name, Dictionary<DateTime, int> hist) in auth)
+                // {
+                //     repoResult.Frequencies.Add(
+                //         new Dictionary<String, dynamic>(){
+                //             {name, hist}
+                //         }
+                //     );
+                // }
                 break;
+
+            default:
+            case Modes.Commit:
+                var dict2 = _lookup.commitFrequency(localpath);
+
+                var f2 = new RepoFreq(dict2);
+
+                res = new RepoResultFreq(f2);
+                break;
+
         }
 
-        yield return repoResult;
+        return res;
     }
 }
